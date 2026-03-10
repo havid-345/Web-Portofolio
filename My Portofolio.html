@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Havid Maulana | Web Developer Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Menambahkan konfigurasi Dark Mode Tailwind
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#3b82f6', // blue-500
+                        secondary: '#1e293b', // slate-800
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom animations */
+        .fade-in { animation: fadeIn 1s ease-in forwards; opacity: 0; }
+        .slide-up { animation: slideUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        
+        /* Animasi Garis Loading */
+        @keyframes slideLine {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(250%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-slide-line {
+            animation: slideLine 1.5s infinite ease-in-out;
+            width: 40%;
+        }
+        
+        /* Animasi Morphing Hover untuk Profil */
+        .morph-hover {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .group:hover .morph-hover {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            transform: rotate(8deg) scale(1.05);
+            border-color: #3b82f6; /* Warna primary saat dihover */
+        }
+        
+        /* Animasi Transisi Teks Profil */
+        .text-initials {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: rotate(0deg) scale(1);
+            opacity: 1;
+        }
+        .group:hover .text-initials {
+            transform: rotate(-15deg) scale(0.5);
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .text-fullname {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: rotate(15deg) scale(0.5);
+            opacity: 0;
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .group:hover .text-fullname {
+            /* -8deg untuk menyeimbangkan rotasi container morph-hover agar teks tetap lurus */
+            transform: rotate(-8deg) scale(1); 
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .glow-morph {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .group:hover .glow-morph {
+            transform: scale(1.3);
+            opacity: 0.8;
+            background-color: rgba(59, 130, 246, 0.4);
+        }
+
+        /* Delay utilities */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+    </style>
+    <!-- Script untuk mencegah kedipan (flicker) tema saat halaman dimuat -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body id="body-content" class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans antialiased selection:bg-primary selection:text-white transition-colors duration-300 overflow-hidden">
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-white dark:bg-gray-900 flex flex-col items-center justify-center transition-opacity duration-700">
+        <h2 class="text-2xl font-bold text-secondary dark:text-white tracking-widest mb-4 animate-pulse">Havid<span class="text-primary">.</span></h2>
+        <!-- Animasi Garis Bergerak -->
+        <div class="w-48 h-1.5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden relative">
+            <div class="absolute top-0 bottom-0 left-0 bg-primary rounded-full animate-slide-line shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-50 shadow-sm dark:shadow-gray-800/30 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold text-secondary dark:text-white tracking-tighter">Havid<span class="text-primary">.</span></a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Beranda</a>
+                    <a href="#about" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Tentang</a>
+                    <a href="#skills" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Keahlian</a>
+                    <a href="#materi" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Materi & Sertifikat</a>
+                    <a href="#contact" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Kontak</a>
+                    <!-- Tombol Dark Mode Desktop -->
+                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2 transition-colors">
+                        <i id="theme-toggle-dark-icon" class="hidden fas fa-moon text-lg"></i>
+                        <i id="theme-toggle-light-icon" class="hidden fas fa-sun text-lg"></i>
+                    </button>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-2">
+                    <!-- Tombol Dark Mode Mobile -->
+                    <button id="theme-toggle-mobile" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2 transition-colors">
+                        <i id="theme-toggle-dark-icon-mobile" class="hidden fas fa-moon text-lg"></i>
+                        <i id="theme-toggle-light-icon-mobile" class="hidden fas fa-sun text-lg"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 dark:text-gray-300 hover:text-primary focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md font-medium mobile-link">Beranda</a>
+                <a href="#about" class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md font-medium mobile-link">Tentang</a>
+                <a href="#skills" class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md font-medium mobile-link">Keahlian</a>
+                <a href="#materi" class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md font-medium mobile-link">Materi & Sertifikat</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md font-medium mobile-link">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-28 flex items-center min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left slide-up">
+                <span class="text-primary font-semibold tracking-wider uppercase mb-2">Halo, Selamat Datang!</span>
+                <h1 class="text-4xl md:text-6xl font-bold text-secondary dark:text-white mb-4 leading-tight">
+                    Saya <span class="text-primary">Havid Maulana</span>
+                </h1>
+                <h2 class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-6 h-8 md:h-10">
+                    <span id="typewriter"></span><span class="animate-pulse ml-1 text-primary">|</span>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-lg leading-relaxed">
+                    Membangun antarmuka web yang menarik, fungsional, dan responsif. Berfokus pada pengalaman pengguna yang optimal dan kode yang bersih.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#contact" class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50">
+                        Hubungi Saya
+                    </a>
+                    <a href="#about" class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 px-8 py-3 rounded-full font-medium transition-all shadow-sm">
+                        Profil Saya
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Profile Avatar Section -->
+            <div class="w-full md:w-1/2 flex justify-center slide-up delay-200">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 group cursor-pointer">
+                    <!-- Efek cahaya di belakang (Ikut membesar saat dihover) -->
+                    <div class="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse glow-morph"></div>
+                    
+                    <!-- Desain Inisial Elegan dengan Morphing Shape Animasi -->
+                    <div class="relative z-10 w-full h-full rounded-full border-8 border-white dark:border-gray-800 shadow-2xl flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300 morph-hover overflow-hidden">
+                        <!-- Teks Inisial -->
+                        <span class="absolute text-7xl md:text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-primary to-blue-300 drop-shadow-sm tracking-tighter text-initials">HM</span>
+                        <!-- Teks Nama Lengkap -->
+                        <span class="absolute text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-primary to-blue-500 drop-shadow-sm tracking-tight text-center leading-tight text-fullname">Havid<br>Maulana</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary dark:text-white mb-4">Tentang Saya</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="w-full md:w-5/12 slide-up delay-100">
+                    <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm transition-colors duration-300">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coding workspace" class="w-full h-auto rounded-xl shadow-md mb-6 object-cover aspect-video">
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-graduation-cap text-primary w-5 text-center"></i>
+                                <span>Universitas Komputama</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-book text-primary w-5 text-center"></i>
+                                <span>Sistem Informasi</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-map-marker-alt text-primary w-5 text-center"></i>
+                                <span>Indonesia</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-7/12 slide-up delay-200">
+                    <h3 class="text-2xl font-semibold text-secondary dark:text-white mb-4">Perjalanan Saya</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                        Halo! Saya adalah seorang mahasiswa program studi <strong>Sistem Informasi</strong> di Universitas Komputama. Saya memiliki ketertarikan yang mendalam terhadap dunia teknologi, khususnya dalam bidang <em>Web Development</em>.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                        Aktif dalam organisasi sejak sekolah dan terus mengasah keterampilan teknis maupun non-teknis demi menghadapi tantangan industri teknologi di masa depan.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-blue-50/50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50 flex items-start gap-4 transition-colors duration-300">
+                            <div class="bg-primary/10 p-3 rounded-lg text-primary">
+                                <i class="fas fa-laptop-code text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-secondary dark:text-white">Web Dev</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Terus belajar HTML, CSS, JS modern.</p>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50/50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50 flex items-start gap-4 transition-colors duration-300">
+                            <div class="bg-primary/10 p-3 rounded-lg text-primary">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-secondary dark:text-white">Team Player</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Pengalaman kolaborasi dari organisasi OSIS.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Pencapaian 1: Google Selection -->
+                        <div class="bg-blue-50/50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-200 dark:border-blue-900/50 flex items-start gap-4 transition-colors duration-300 text-left">
+                            <div class="bg-primary/10 p-3 rounded-lg text-primary">
+                                <i class="fab fa-google text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-secondary dark:text-white">Google Selection</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Kandidat seleksi Google Student Ambassador 2026.</p>
+                            </div>
+                        </div>
+
+                        <!-- Pencapaian 2: Matematika -->
+                        <div class="bg-orange-50/50 dark:bg-orange-900/20 p-4 rounded-xl border border-orange-200 dark:border-orange-900/50 flex items-start gap-4 transition-colors duration-300 text-left">
+                            <div class="bg-orange-500/10 p-3 rounded-lg text-orange-600 dark:text-orange-400">
+                                <i class="fas fa-medal text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-secondary dark:text-white">Matematika</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Medali Perunggu Olimpiade Matematika Online.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary dark:text-white mb-4">Keahlian Web</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Bahasa dan teknologi utama yang saya pelajari dan gunakan dalam mengembangkan website. <br><span class="text-sm text-primary font-medium">(Klik ikon untuk melihat detail)</span></p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Skill 1 -->
+                <div onclick="openSkillModal('html')" class="group cursor-pointer bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center hover:shadow-xl hover:shadow-orange-500/20 transition-all hover:-translate-y-2 hover:scale-[1.03] duration-500 ease-out slide-up delay-100">
+                    <i class="fab fa-html5 text-5xl text-orange-500 mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300"></i>
+                    <h3 class="font-semibold text-secondary dark:text-white">HTML5</h3>
+                </div>
+                <!-- Skill 2 -->
+                <div onclick="openSkillModal('css')" class="group cursor-pointer bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center hover:shadow-xl hover:shadow-blue-500/20 transition-all hover:-translate-y-2 hover:scale-[1.03] duration-500 ease-out slide-up delay-200">
+                    <i class="fab fa-css3-alt text-5xl text-blue-500 mb-4 transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300"></i>
+                    <h3 class="font-semibold text-secondary dark:text-white">CSS3</h3>
+                </div>
+                <!-- Skill 3 -->
+                <div onclick="openSkillModal('js')" class="group cursor-pointer bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center hover:shadow-xl hover:shadow-yellow-500/20 transition-all hover:-translate-y-2 hover:scale-[1.03] duration-500 ease-out slide-up delay-300">
+                    <i class="fab fa-js text-5xl text-yellow-400 mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300"></i>
+                    <h3 class="font-semibold text-secondary dark:text-white">JavaScript</h3>
+                </div>
+                <!-- Skill 4 -->
+                <div onclick="openSkillModal('tailwind')" class="group cursor-pointer bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center hover:shadow-xl hover:shadow-teal-500/20 transition-all hover:-translate-y-2 hover:scale-[1.03] duration-500 ease-out slide-up delay-300">
+                    <i class="fab fa-uikit text-5xl text-teal-500 mb-4 transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300"></i>
+                    <h3 class="font-semibold text-secondary dark:text-white">Tailwind CSS</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materi Kuliah Section -->
+    <section id="materi" class="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary dark:text-white mb-4">Materi & Sertifikat</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Akses repositori dokumen pembelajaran dan kumpulan sertifikat yang saya peroleh selama masa perkuliahan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                <!-- Card 1: Materi Drive (Konsep SI) -->
+                <a href="https://sites.google.com/view/mhasymis/mengajar/konsep-sistem-informasi?authuser=0" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-gray-50 dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-primary/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-100 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden">
+                    <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/15 transition-colors duration-500"></div>
+                    <div class="w-20 h-20 shrink-0 bg-white dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 z-10">
+                        <i class="fab fa-google-drive text-5xl" style="background: -webkit-linear-gradient(bottom left, #FFC107 25%, #4CAF50 50%, #2196F3 75%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                    </div>
+                    <div class="z-10 flex-1 flex flex-col items-center sm:items-start lg:items-center">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-3 transition-colors">
+                            <i class="fas fa-folder-open"></i> Akses Drive
+                        </div>
+                        <h3 class="text-2xl font-bold text-secondary dark:text-white mb-2 group-hover:text-primary transition-colors">Konsep Sistem Informasi</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">Klik di sini untuk melihat dan mengunduh seluruh materi untuk mata kuliah Konsep Sistem Informasi.</p>
+                        <span class="inline-flex items-center justify-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all mt-auto">
+                            Buka Materi <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 2: Materi Drive (Infrastruktur TI) -->
+                <a href="https://sites.google.com/view/mhasymis/mengajar/infrastruktur-teknologi-informasi?authuser=0" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-gray-50 dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-purple-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-200 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden">
+                    <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/15 transition-colors duration-500"></div>
+                    <div class="w-20 h-20 shrink-0 bg-white dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300 z-10">
+                        <i class="fab fa-google-drive text-5xl" style="background: -webkit-linear-gradient(bottom left, #FFC107 25%, #4CAF50 50%, #9C27B0 75%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                    </div>
+                    <div class="z-10 flex-1 flex flex-col items-center sm:items-start lg:items-center">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-bold uppercase tracking-wider mb-3 transition-colors">
+                            <i class="fas fa-folder-open"></i> Akses Drive
+                        </div>
+                        <h3 class="text-2xl font-bold text-secondary dark:text-white mb-2 group-hover:text-purple-500 transition-colors">Infrastruktur Teknologi Informasi</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">Klik di sini untuk melihat dan mengunduh seluruh materi untuk mata kuliah Infrastruktur Teknologi Informasi.</p>
+                        <span class="inline-flex items-center justify-center gap-2 text-purple-500 font-medium text-sm group-hover:gap-3 transition-all mt-auto">
+                            Buka Materi <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 3: Sertifikat -->
+                <a href="https://drive.google.com/drive/folders/1NomymELwoYbs8g7ECj8nUIXxik3oECwE" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-gray-50 dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-orange-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-300 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden md:col-span-2 lg:col-span-1">
+                    <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl group-hover:bg-orange-500/15 transition-colors duration-500"></div>
+                    <div class="w-20 h-20 shrink-0 bg-white dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 z-10">
+                        <i class="fas fa-certificate text-5xl text-orange-500"></i>
+                    </div>
+                    <div class="z-10 flex-1 flex flex-col items-center sm:items-start lg:items-center">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-bold uppercase tracking-wider mb-3 transition-colors">
+                            <i class="fas fa-award"></i> Penghargaan
+                        </div>
+                        <h3 class="text-2xl font-bold text-secondary dark:text-white mb-2 group-hover:text-orange-500 transition-colors">Sertifikat Perkuliahan</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">Klik di sini untuk melihat kumpulan sertifikat penghargaan, kompetisi, dan keikutsertaan saya selama perkuliahan.</p>
+                        <span class="inline-flex items-center justify-center gap-2 text-orange-500 font-medium text-sm group-hover:gap-3 transition-all mt-auto">
+                            Lihat Sertifikat <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary dark:text-white mb-4">Hubungi Saya</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Punya ide proyek, tawaran kolaborasi, atau sekadar ingin menyapa? Jangan ragu untuk menghubungi saya melalui kontak di bawah ini.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center gap-6 max-w-4xl mx-auto">
+                <!-- WhatsApp Card -->
+                <a href="https://wa.me/6283838695666" target="_blank" rel="noopener noreferrer" class="flex-1 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800/50 p-8 rounded-2xl hover:shadow-2xl hover:shadow-green-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out group text-center slide-up delay-100">
+                    <div class="w-16 h-16 bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fab fa-whatsapp text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">WhatsApp</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Kirim pesan WhatsApp</p>
+                    <span class="text-green-600 dark:text-green-400 font-medium text-sm flex items-center justify-center gap-2 group-hover:gap-3 transition-all">
+                        Chat Sekarang <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <!-- Email Card -->
+                <a href="mailto:havidmaulana345@gmail.com" class="flex-1 bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800/50 p-8 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out group text-center slide-up delay-200">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 text-primary dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300">
+                        <i class="fas fa-envelope text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">Email</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">havidmaulana345@gmail.com</p>
+                    <span class="text-primary dark:text-blue-400 font-medium text-sm flex items-center justify-center gap-2 group-hover:gap-3 transition-all">
+                        Kirim Pesan <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary dark:bg-gray-950 text-white py-10 border-t border-gray-800 dark:border-gray-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6">
+            <div class="flex space-x-8">
+                <a href="https://github.com/havid-345" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors transform hover:scale-125 duration-300 hover:-rotate-6">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+                <a href="https://www.instagram.com/hvdmln__?igsh=MWMyNDR0MHZtcncwYw==" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-pink-500 transition-colors transform hover:scale-125 duration-300 hover:rotate-6">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </a>
+                <a href="https://www.tiktok.com/@unknownaccoundq?_r=1&_t=ZS-94Z5l3NDUe5" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors transform hover:scale-125 duration-300 hover:-rotate-6">
+                    <i class="fab fa-tiktok text-2xl"></i>
+                </a>
+                <a href="https://youtube.com/@vidchannell?si=OIwTCBQt8zslK1qs" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-red-500 transition-colors transform hover:scale-125 duration-300 hover:rotate-6">
+                    <i class="fab fa-youtube text-2xl"></i>
+                </a>
+            </div>
+            <p class="text-gray-400 text-sm text-center">
+                &copy; <span id="year"></span> Havid Maulana. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Skill Modal Box -->
+    <div id="skill-modal" class="fixed inset-0 z-[60] hidden bg-black/50 backdrop-blur-sm flex items-center justify-center px-4 transition-opacity duration-300 opacity-0">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl transform scale-95 transition-transform duration-300" id="skill-modal-content">
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center gap-4">
+                    <div id="modal-icon-container" class="p-3 rounded-xl">
+                        <i id="modal-icon" class="text-4xl"></i>
+                    </div>
+                    <h3 id="modal-title" class="text-2xl font-bold text-secondary dark:text-white">Title</h3>
+                </div>
+                <button onclick="closeSkillModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white focus:outline-none transition-colors transform hover:scale-110 hover:rotate-90 duration-300">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <p id="modal-desc" class="text-gray-600 dark:text-gray-300 leading-relaxed mt-2"></p>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Set Current Year in Footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const icon = btn.querySelector('i');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Navbar Shadow on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('shadow-sm');
+            }
+        });
+
+        // Simple Scroll Animation Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Pause animations initially so they play when scrolled into view
+        document.querySelectorAll('.slide-up, .fade-in').forEach((el) => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Dark Mode Logic
+        const themeToggleDarkIcons = document.querySelectorAll('#theme-toggle-dark-icon, #theme-toggle-dark-icon-mobile');
+        const themeToggleLightIcons = document.querySelectorAll('#theme-toggle-light-icon, #theme-toggle-light-icon-mobile');
+        const themeToggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+
+        // Mengatur ikon awal sesuai dengan tema yang sedang aktif
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            // TEMA GELAP -> TAMPILKAN BULAN
+            themeToggleDarkIcons.forEach(icon => icon.classList.remove('hidden'));
+        } else {
+            // TEMA TERANG -> TAMPILKAN MATAHARI
+            themeToggleLightIcons.forEach(icon => icon.classList.remove('hidden'));
+        }
+
+        themeToggleBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Sembunyikan dan tampilkan ikon bergantian
+                themeToggleDarkIcons.forEach(icon => icon.classList.toggle('hidden'));
+                themeToggleLightIcons.forEach(icon => icon.classList.toggle('hidden'));
+
+                // Jika tema sebelumnya sudah disimpan di localStorage
+                if (localStorage.getItem('color-theme')) {
+                    if (localStorage.getItem('color-theme') === 'light') {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    }
+                // Jika belum pernah disetting
+                } else {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    }
+                }
+            });
+        });
+
+        // Loading Screen Logic
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            const body = document.getElementById('body-content');
+            
+            // Diberi sedikit delay (800ms) agar efek loading-nya sempat terlihat keren
+            setTimeout(() => {
+                loader.classList.add('opacity-0');
+                
+                // Tunggu efek fade out selesai sebelum dihilangkan sepenuhnya
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    body.classList.remove('overflow-hidden'); // Kembalikan fungsi scroll halaman
+                    
+                    // Mulai efek Typewriter setelah animasi loading selesai
+                    setTimeout(typeWriterEffect, 200);
+                }, 700); 
+            }, 800);
+        });
+
+        // Typewriter Effect Logic
+        const typewriterElement = document.getElementById('typewriter');
+        const phrases = ['Mahasiswa Sistem Informasi', 'Web Developer'];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function typeWriterEffect() {
+            if (!typewriterElement) return;
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                // Proses menghapus huruf
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50; // Kecepatan menghapus lebih cepat
+            } else {
+                // Proses mengetik huruf
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100; // Kecepatan mengetik normal
+            }
+
+            // Jika satu kalimat selesai diketik
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Jeda (berhenti sejenak) sebelum mulai menghapus
+            } 
+            // Jika kalimat selesai dihapus, lanjut ke kalimat berikutnya
+            else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500; // Jeda sebelum mulai mengetik kalimat baru
+            }
+
+            setTimeout(typeWriterEffect, typeSpeed);
+        }
+
+        // Skill Modal Logic
+        const skillData = {
+            'html': {
+                title: 'HTML5',
+                icon: 'fab fa-html5 text-orange-500',
+                bg: 'bg-orange-50 dark:bg-orange-900/20',
+                desc: 'HTML5 adalah kerangka dasar dari setiap website. Saya menggunakannya untuk menyusun struktur konten secara semantik, memastikan aksesibilitas yang baik, dan membuat fondasi yang kuat sebelum ditambahkan desain atau interaktivitas.'
+            },
+            'css': {
+                title: 'CSS3',
+                icon: 'fab fa-css3-alt text-blue-500',
+                bg: 'bg-blue-50 dark:bg-blue-900/20',
+                desc: 'CSS3 memberi nyawa pada tampilan website. Dengan CSS, saya mendesain tata letak yang responsif, mengatur warna, tipografi, serta menambahkan animasi transisi agar pengalaman pengguna (UX) menjadi lebih menarik dan nyaman dilihat.'
+            },
+            'js': {
+                title: 'JavaScript',
+                icon: 'fab fa-js text-yellow-500 dark:text-yellow-400',
+                bg: 'bg-yellow-50 dark:bg-yellow-900/20',
+                desc: 'JavaScript adalah otak di balik interaktivitas website. Saya memanfaatkannya untuk memanipulasi elemen secara langsung (DOM), memproses data, membuat animasi dinamis, hingga menangani logika fitur-fitur web modern.'
+            },
+            'tailwind': {
+                title: 'Tailwind CSS',
+                icon: 'fab fa-uikit text-teal-500',
+                bg: 'bg-teal-50 dark:bg-teal-900/20',
+                desc: 'Tailwind CSS adalah framework modern favorit saya. Dibanding CSS biasa, Tailwind memungkinkan saya membuat desain kustom dengan sangat cepat langsung dari file HTML menggunakan utility classes, membuat kode lebih rapi dan efisien.'
+            }
+        };
+
+        function openSkillModal(skillKey) {
+            const modal = document.getElementById('skill-modal');
+            const modalContent = document.getElementById('skill-modal-content');
+            const data = skillData[skillKey];
+
+            // Set content
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-icon').className = data.icon;
+            document.getElementById('modal-icon-container').className = `p-3 rounded-xl ${data.bg}`;
+            document.getElementById('modal-desc').textContent = data.desc;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            // Trigger reflow to restart transition
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeSkillModal() {
+            const modal = document.getElementById('skill-modal');
+            const modalContent = document.getElementById('skill-modal-content');
+            
+            // Hide modal
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            // Wait for transition to finish before hiding element
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal when clicking outside of it (on the backdrop)
+        document.getElementById('skill-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSkillModal();
+            }
+        });
+    </script>
+</body>
+</html>
