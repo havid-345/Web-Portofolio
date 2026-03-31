@@ -28,12 +28,12 @@ Saya adalah seorang mahasiswa dan *developer* yang memiliki semangat tinggi dala
 
 Berikut adalah beberapa proyek yang sedang atau telah saya kerjakan:
 
-1.  **[Nama Proyek Sistem Mahasiswa]**
+1.  **[Sistem Mahasiswa]**
     * *Deskripsi:* Sebuah platform manajemen akademik mahasiswa yang dibangun menggunakan Laravel. Mengelola *routing* dan *controller* kompleks untuk rencana dan hasil studi mahasiswa.
     * *Teknologi:* Laravel, PHP, MySQL.
     * [Link ke Repositori](#) | [Live Demo](#)
 
-2.  **[Nama Proyek UI/UX Case Study]**
+2.  **[UI/UX Case Study]**
     * *Deskripsi:* Analisis mendalam tentang aplikasi finansial menggunakan prinsip psikologi kognitif (*Recognition vs Recall*, aksesibilitas kontras visual).
     * *Teknologi:* Figma, UI/UX Research.
     * [Link ke Repositori/Artikel](#)
