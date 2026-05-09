@@ -31,12 +31,10 @@ Berikut adalah beberapa proyek yang sedang atau telah saya kerjakan:
 1.  **[Sistem Mahasiswa]**
     * *Deskripsi:* Sebuah platform manajemen akademik mahasiswa yang dibangun menggunakan Laravel. Mengelola *routing* dan *controller* kompleks untuk rencana dan hasil studi mahasiswa.
     * *Teknologi:* Laravel, PHP, MySQL.
-    * [Link ke Repositori](#) | [Live Demo](#)
 
 2.  **[UI/UX Case Study]**
     * *Deskripsi:* Analisis mendalam tentang aplikasi finansial menggunakan prinsip psikologi kognitif (*Recognition vs Recall*, aksesibilitas kontras visual).
     * *Teknologi:* Figma, UI/UX Research.
-    * [Link ke Repositori/Artikel](#)
 
 ---
 
@@ -44,8 +42,8 @@ Berikut adalah beberapa proyek yang sedang atau telah saya kerjakan:
 
 Saya selalu terbuka untuk diskusi tentang teknologi, kolaborasi proyek, atau bertukar ide seputar inovasi AI dan *spatial computing*.
 
-- **LinkedIn:** [linkedin.com/in/username-kamu](https://linkedin.com/in/username-kamu)
-- **Email:** email.kamu@example.com
-- **Portfolio Website:** [link-website-kamu.com](https://link-website-kamu.com) (Jika ada)
+- **LinkedIn:** 
+- **Email:** unknown84689@gmail.com
+- **Portfolio Website:** 
 
 ⭐️ *Thanks for visiting my profile!*
