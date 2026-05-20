@@ -26,30 +26,34 @@
     <style>
         .fade-in { animation: fadeIn 1s ease-in forwards; opacity: 0; }
         .slide-up { animation: slideUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
-        
+    
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
-        
+    
         @keyframes slideLine {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(250%); }
-            100% { transform: translateX(-100%); }
+        0% { transform: translateX(-100%); }
+        50% { transform: translateX(250%); }
+        100% { transform: translateX(-100%); }
         }
         .animate-slide-line {
-            animation: slideLine 1.5s infinite ease-in-out;
-            width: 40%;
+        animation: slideLine 1.5s infinite ease-in-out;
+        width: 40%;
         }
-        
+    
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
 
         @keyframes floatMenu {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-12px) scale(1.03); }
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-12px) scale(1.03); }
         }
         .animate-float-menu {
-            animation: floatMenu 4s ease-in-out infinite;
+        animation: floatMenu 4s ease-in-out infinite;
+        }
+
+        .animate-float-menu:hover {
+        animation-play-state: paused;
         }
     </style>
     <script>
@@ -69,27 +73,12 @@
         </div>
     </div>
 
-    <nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-50 shadow-sm dark:shadow-gray-800/30 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0">
-                    <a href="#home" class="text-2xl font-bold text-secondary dark:text-white tracking-tighter">Havid<span class="text-primary">.</span></a>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2 transition-colors">
-                        <i id="theme-toggle-dark-icon" class="hidden fas fa-moon text-lg"></i>
-                        <i id="theme-toggle-light-icon" class="hidden fas fa-sun text-lg"></i>
-                    </button>
-                </div>
-                <div class="md:hidden flex items-center gap-2">
-                    <button id="theme-toggle-mobile" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2 transition-colors">
-                        <i id="theme-toggle-dark-icon-mobile" class="hidden fas fa-moon text-lg"></i>
-                        <i id="theme-toggle-light-icon-mobile" class="hidden fas fa-sun text-lg"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <div class="fixed top-6 right-6 z-50">
+        <button id="theme-toggle" type="button" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-lg border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110">
+            <i id="theme-toggle-dark-icon" class="hidden fas fa-moon text-xl"></i>
+            <i id="theme-toggle-light-icon" class="hidden fas fa-sun text-xl"></i>
+        </button>
+    </div>
 
     <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-28 flex items-center min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col md:flex-row items-center gap-12">
@@ -109,67 +98,45 @@
                     <a href="#contact" class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50">
                         Hubungi Saya
                     </a>
-                    <a href="#about" class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 px-8 py-3 rounded-full font-medium transition-all shadow-sm">
-                        Profil Saya
+                    <a href="#project" class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 px-8 py-3 rounded-full font-medium transition-all shadow-sm">
+                        Lihat Proyek
                     </a>
                 </div>
             </div>
             
             <div class="w-full md:w-1/2 flex justify-center slide-up delay-200 mt-12 md:mt-0 relative">
-                
                 <div class="relative w-full max-w-lg aspect-square flex items-center justify-center">
                     
-                    <div class="absolute inset-10 bg-primary/20 dark:bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+                    <div class="absolute inset-10 bg-primary/20 dark:bg-primary/10 rounded-full blur-3xl animate-pulse z-0"></div>
 
-                   <div class="relative w-full max-w-lg aspect-square flex items-center justify-center">
-    
-                <div class="absolute inset-10 bg-primary/20 dark:bg-primary/10 rounded-full blur-3xl animate-pulse z-0"></div>
+                    <div class="relative z-10 w-72 h-72 md:w-96 md:h-96 drop-shadow-2xl flex items-center justify-center overflow-hidden rounded-full border-4 border-white dark:border-gray-800 shadow-[0_0_40px_rgba(59,130,246,0.2)]">
+                        <img src="foto-profil.jpeg" alt="Foto Havid Maulana" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105 pointer-events-none">
+                    </div>
 
-                <div class="relative z-10 w-80 h-80 md:w-112 md:h-112 drop-shadow-2xl flex items-center justify-center overflow-hidden rounded-full">
-                    <video src="Koding Video.webm" autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none mix-blend-lighten opacity-90 transition-all duration-300"></video>
-                </div>
-
-                <a href="#about" class="group absolute top-[10%] right-[0%] md:right-[-5%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-green-500/30 transition-all duration-300 z-20" style="animation-delay: 0s;">
-                <div class="bg-green-100 dark:bg-green-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"><i class="fas fa-user text-green-500"></i></div>
-                <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-green-500 transition-colors">Tentang</span>
-                </a>
-
-                <a href="#skills" class="group absolute top-[35%] left-[0%] md:left-[-10%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-yellow-500/30 transition-all duration-300 z-20" style="animation-delay: 0.8s;">
-                <div class="bg-yellow-100 dark:bg-yellow-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"><i class="fas fa-laptop-code text-yellow-500"></i></div>
-                <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-yellow-500 transition-colors">Keahlian</span>
-                </a>
-
-                <a href="#materi" class="group absolute bottom-[20%] right-[0%] md:right-[-5%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 z-20" style="animation-delay: 1.6s;">
-                    <div class="bg-purple-100 dark:bg-purple-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"><i class="fas fa-award text-purple-500"></i></div>
-                    <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-purple-500 transition-colors">Materi & Sertifikat</span>
-                </a>
-
-                <a href="#contact" class="group absolute bottom-[5%] left-[10%] md:left-[5%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-500/30 transition-all duration-300 z-20" style="animation-delay: 2.4s;">
-                    <div class="bg-orange-100 dark:bg-orange-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"><i class="fas fa-envelope text-orange-500"></i></div>
-                    <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-orange-500 transition-colors">Kontak</span>
-                </a>
-            </div>
+                    <a href="#project" class="group absolute top-[-2%] left-[10%] md:left-[0%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 z-20" style="animation-delay: 0.4s;">
+                        <div class="bg-cyan-100 dark:bg-cyan-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"><i class="fas fa-rocket text-cyan-500"></i></div>
+                        <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-cyan-500 transition-colors">Project</span>
+                    </a>
 
                     <a href="#about" class="group absolute top-[10%] right-[0%] md:right-[-5%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-green-500/30 transition-all duration-300 z-20" style="animation-delay: 0s;">
                         <div class="bg-green-100 dark:bg-green-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"><i class="fas fa-user text-green-500"></i></div>
                         <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-green-500 transition-colors">Tentang</span>
                     </a>
 
-                    <a href="#skills" class="group absolute top-[35%] left-[0%] md:left-[-10%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-yellow-500/30 transition-all duration-300 z-20" style="animation-delay: 0.8s;">
+                    <a href="#skills" class="group absolute top-[40%] left-[0%] md:left-[-10%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-yellow-500/30 transition-all duration-300 z-20" style="animation-delay: 0.8s;">
                         <div class="bg-yellow-100 dark:bg-yellow-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"><i class="fas fa-laptop-code text-yellow-500"></i></div>
                         <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-yellow-500 transition-colors">Keahlian</span>
                     </a>
 
                     <a href="#materi" class="group absolute bottom-[20%] right-[0%] md:right-[-5%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 z-20" style="animation-delay: 1.6s;">
                         <div class="bg-purple-100 dark:bg-purple-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"><i class="fas fa-award text-purple-500"></i></div>
-                        <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-purple-500 transition-colors">Materi & Sertifikat</span>
+                        <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-purple-500 transition-colors">Sertifikat</span>
                     </a>
 
-                    <a href="#contact" class="group absolute bottom-[5%] left-[10%] md:left-[5%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-500/30 transition-all duration-300 z-20" style="animation-delay: 2.4s;">
+                    <a href="#contact" class="group absolute bottom-[5%] left-[5%] md:left-[5%] bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 flex items-center gap-3 animate-float-menu hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-500/30 transition-all duration-300 z-20" style="animation-delay: 2.4s;">
                         <div class="bg-orange-100 dark:bg-orange-900/50 p-2 rounded-lg transform transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"><i class="fas fa-envelope text-orange-500"></i></div>
                         <span class="font-bold text-gray-700 dark:text-gray-200 text-sm whitespace-nowrap group-hover:text-orange-500 transition-colors">Kontak</span>
                     </a>
-
                 </div>
             </div>
         </div>
@@ -286,7 +253,36 @@
         </div>
     </section>
 
-    <section id="materi" class="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section id="project" class="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary dark:text-white mb-4">Proyek & Karya</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Kumpulan proyek pengembangan web dan aplikasi yang telah saya bangun untuk menyelesaikan berbagai permasalahan nyata.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                <a href="https://havid-345.github.io/web-aplikasi-kasir/" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-gray-50 dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-100 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden md:col-span-2 lg:col-span-1">
+                    <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/15 transition-colors duration-500"></div>
+                    <div class="w-20 h-20 shrink-0 bg-white dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 z-10">
+                        <i class="fas fa-cash-register text-5xl text-cyan-500"></i>
+                    </div>
+                    <div class="z-10 flex-1 flex flex-col items-center sm:items-start lg:items-center">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3 transition-colors">
+                            <i class="fas fa-link"></i> Web App
+                        </div>
+                        <h3 class="text-2xl font-bold text-secondary dark:text-white mb-2 group-hover:text-cyan-500 transition-colors">Aplikasi Kasir (POS)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">Sistem Point of Sale berbasis web dengan fitur manajemen produk, kalkulator kembalian otomatis, serta export struk thermal ke PDF dan Microsoft Word secara dinamis.</p>
+                        <span class="inline-flex items-center justify-center gap-2 text-cyan-500 font-medium text-sm group-hover:gap-3 transition-all mt-auto">
+                            Kunjungi Aplikasi <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="materi" class="py-20 bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 slide-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-secondary dark:text-white mb-4">Materi & Sertifikat</h2>
@@ -295,9 +291,9 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-                <a href="https://sites.google.com/view/mhasymis/mengajar/konsep-sistem-informasi?authuser=0" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-gray-50 dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-primary/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-100 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden">
+                <a href="https://sites.google.com/view/mhasymis/mengajar/konsep-sistem-informasi?authuser=0" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-white dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-primary/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-100 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden">
                     <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/15 transition-colors duration-500"></div>
-                    <div class="w-20 h-20 shrink-0 bg-white dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 z-10">
+                    <div class="w-20 h-20 shrink-0 bg-gray-50 dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 z-10">
                         <i class="fab fa-google-drive text-5xl" style="background: -webkit-linear-gradient(bottom left, #FFC107 25%, #4CAF50 50%, #2196F3 75%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
                     </div>
                     <div class="z-10 flex-1 flex flex-col items-center sm:items-start lg:items-center">
@@ -312,9 +308,9 @@
                     </div>
                 </a>
 
-                <a href="https://sites.google.com/view/mhasymis/mengajar/infrastruktur-teknologi-informasi?authuser=0" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-gray-50 dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-purple-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-200 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden">
+                <a href="https://sites.google.com/view/mhasymis/mengajar/infrastruktur-teknologi-informasi?authuser=0" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-white dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-purple-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-200 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden">
                     <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/15 transition-colors duration-500"></div>
-                    <div class="w-20 h-20 shrink-0 bg-white dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300 z-10">
+                    <div class="w-20 h-20 shrink-0 bg-gray-50 dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300 z-10">
                         <i class="fab fa-google-drive text-5xl" style="background: -webkit-linear-gradient(bottom left, #FFC107 25%, #4CAF50 50%, #9C27B0 75%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
                     </div>
                     <div class="z-10 flex-1 flex flex-col items-center sm:items-start lg:items-center">
@@ -329,9 +325,9 @@
                     </div>
                 </a>
 
-                <a href="https://drive.google.com/drive/folders/1NomymELwoYbs8g7ECj8nUIXxik3oECwE" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-gray-50 dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-orange-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-300 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden md:col-span-2 lg:col-span-1">
+                <a href="https://drive.google.com/drive/folders/1NomymELwoYbs8g7ECj8nUIXxik3oECwE" target="_blank" rel="noopener noreferrer" class="group relative w-full bg-white dark:bg-gray-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-orange-500/20 transition-all hover:-translate-y-2 hover:scale-[1.02] duration-500 ease-out slide-up delay-300 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center text-center sm:text-left lg:text-center gap-6 overflow-hidden md:col-span-2 lg:col-span-1">
                     <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl group-hover:bg-orange-500/15 transition-colors duration-500"></div>
-                    <div class="w-20 h-20 shrink-0 bg-white dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 z-10">
+                    <div class="w-20 h-20 shrink-0 bg-gray-50 dark:bg-gray-900 shadow-md rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 z-10">
                         <i class="fas fa-certificate text-5xl text-orange-500"></i>
                     </div>
                     <div class="z-10 flex-1 flex flex-col items-center sm:items-start lg:items-center">
@@ -349,7 +345,7 @@
         </div>
     </section>
 
-    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300">
+    <section id="contact" class="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 slide-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-secondary dark:text-white mb-4">Hubungi Saya</h2>
@@ -425,17 +421,6 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                navbar.classList.add('shadow-md');
-                navbar.classList.remove('shadow-sm');
-            } else {
-                navbar.classList.remove('shadow-md');
-                navbar.classList.add('shadow-sm');
-            }
-        });
-
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -456,39 +441,37 @@
             observer.observe(el);
         });
 
-        const themeToggleDarkIcons = document.querySelectorAll('#theme-toggle-dark-icon, #theme-toggle-dark-icon-mobile');
-        const themeToggleLightIcons = document.querySelectorAll('#theme-toggle-light-icon, #theme-toggle-light-icon-mobile');
-        const themeToggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const themeToggleBtn = document.getElementById('theme-toggle');
 
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            themeToggleDarkIcons.forEach(icon => icon.classList.remove('hidden'));
+            themeToggleDarkIcon.classList.remove('hidden');
         } else {
-            themeToggleLightIcons.forEach(icon => icon.classList.remove('hidden'));
+            themeToggleLightIcon.classList.remove('hidden');
         }
 
-        themeToggleBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                themeToggleDarkIcons.forEach(icon => icon.classList.toggle('hidden'));
-                themeToggleLightIcons.forEach(icon => icon.classList.toggle('hidden'));
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
 
-                if (localStorage.getItem('color-theme')) {
-                    if (localStorage.getItem('color-theme') === 'light') {
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('color-theme', 'dark');
-                    } else {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.setItem('color-theme', 'light');
-                    }
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
                 } else {
-                    if (document.documentElement.classList.contains('dark')) {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.setItem('color-theme', 'light');
-                    } else {
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('color-theme', 'dark');
-                    }
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
                 }
-            });
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
         });
 
         window.addEventListener('load', () => {
